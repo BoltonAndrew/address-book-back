@@ -1,7 +1,9 @@
+import { Contact } from '../models/Contact'
+
 
 const addContact = async (req, res) => {
     try {
-        const contact = new contact(req.body);
+        const contact = new Contact(req.body);
         const savedContact = await contact.save;
         res.status(201).send({savedContact});
     } catch (error) {
@@ -16,7 +18,7 @@ const addContact = async (req, res) => {
 
 const deleteContact = async (req, res) => {
     try {
-        await req.contact.remove();
+        const contact = await Contact.findByIdAndDelete(req.body.id)
         res.status(200).send(contact);
     } catch (error) {
         res.status(404).send({message: "User not found"});
